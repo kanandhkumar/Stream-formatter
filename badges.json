@@ -1,20 +1,62 @@
 {
   "name": "My Formatter",
-  "platforms": [
-    "Netflix",
-    "Prime Video",
-    "Disney+",
-    "Hotstar",
-    "SonyLIV",
-    "Apple TV+",
-    "Paramount+",
-    "Crunchyroll",
-    "YouTube",
-    "HBO Max",
-    "Hulu",
-    "Zee5",
-    "Peacock",
-    "Mubi"
+  "groups": [
+    {
+      "id": "resolution",
+      "name": "Resolution",
+      "color": "#00000000",
+      "borderColor": "#00000000",
+      "isExpanded": true
+    },
+    {
+      "id": "video-tech",
+      "name": "Video Tech",
+      "color": "#00000000",
+      "borderColor": "#00000000",
+      "isExpanded": true
+    },
+    {
+      "id": "audio-tech",
+      "name": "Audio Tech",
+      "color": "#00000000",
+      "borderColor": "#00000000",
+      "isExpanded": true
+    },
+    {
+      "id": "audio-channels",
+      "name": "Audio Channels",
+      "color": "#00000000",
+      "borderColor": "#00000000",
+      "isExpanded": true
+    },
+    {
+      "id": "source",
+      "name": "Source",
+      "color": "#00000000",
+      "borderColor": "#00000000",
+      "isExpanded": true
+    },
+    {
+      "id": "video-codec",
+      "name": "Video Codec",
+      "color": "#00000000",
+      "borderColor": "#00000000",
+      "isExpanded": true
+    },
+    {
+      "id": "bit-depth",
+      "name": "Bit Depth",
+      "color": "#00000000",
+      "borderColor": "#00000000",
+      "isExpanded": true
+    },
+    {
+      "id": "platforms",
+      "name": "Streaming Platforms",
+      "color": "#00000000",
+      "borderColor": "#00000000",
+      "isExpanded": true
+    }
   ],
   "filters": [
     {
@@ -109,11 +151,11 @@
       "type": "filter"
     },
     {
-      "id": "imax-enhanced",
+      "id": "hdr",
       "groupId": "video-tech",
-      "name": "IMAX Enhanced",
-      "pattern": "(?i)\\b(imax[\\s._-]*enhanced)\\b",
-      "imageURL": "https://raw.githubusercontent.com/leonevz/Elite-Badges/main/Badges/imax_enhanced.png",
+      "name": "HDR",
+      "pattern": "(?i)\\bhdr\\b",
+      "imageURL": "https://raw.githubusercontent.com/leonevz/Elite-Badges/main/Badges/hdr.png",
       "tagColor": "#00000000",
       "borderColor": "#00000000",
       "textColor": "#00000000",
@@ -135,11 +177,11 @@
       "type": "filter"
     },
     {
-      "id": "hdr",
+      "id": "imax-enhanced",
       "groupId": "video-tech",
-      "name": "HDR",
-      "pattern": "(?i)\\bhdr\\b",
-      "imageURL": "https://raw.githubusercontent.com/leonevz/Elite-Badges/main/Badges/hdr.png",
+      "name": "IMAX Enhanced",
+      "pattern": "(?i)\\b(imax[\\s._-]*enhanced)\\b",
+      "imageURL": "https://raw.githubusercontent.com/leonevz/Elite-Badges/main/Badges/imax_enhanced.png",
       "tagColor": "#00000000",
       "borderColor": "#00000000",
       "textColor": "#00000000",
@@ -187,19 +229,6 @@
       "type": "filter"
     },
     {
-      "id": "dts-x",
-      "groupId": "audio-tech",
-      "name": "DTS:X",
-      "pattern": "(?i)\\b(dts[:\\s._-]*x)\\b",
-      "imageURL": "https://raw.githubusercontent.com/leonevz/Elite-Badges/main/Badges/dts_x.png",
-      "tagColor": "#00000000",
-      "borderColor": "#00000000",
-      "textColor": "#00000000",
-      "tagStyle": "filled and bordered",
-      "isEnabled": true,
-      "type": "filter"
-    },
-    {
       "id": "dolby-digital-plus",
       "groupId": "audio-tech",
       "name": "Dolby Digital Plus",
@@ -213,11 +242,11 @@
       "type": "filter"
     },
     {
-      "id": "dts-hd-master-audio",
+      "id": "dolby-digital",
       "groupId": "audio-tech",
-      "name": "DTS-HD MA",
-      "pattern": "(?i)\\b(dts[\\s._-]*hd[\\s._-]*ma|dtshd\\s*ma|dts[\\s._-]*hd[\\s._-]*master)\\b",
-      "imageURL": "https://raw.githubusercontent.com/leonevz/Elite-Badges/main/Badges/dts_hd_master_audio.png",
+      "name": "Dolby Digital",
+      "pattern": "(?i)\\b(dd[\\s._-]*[0-9][\\s._-]*[0-9]|dd|dolby[\\s._-]*digital|ac-?3)(?![\\s._-]*plus|\\+|p|[a-z])",
+      "imageURL": "https://raw.githubusercontent.com/leonevz/Elite-Badges/main/Badges/dolby_digital.png",
       "tagColor": "#00000000",
       "borderColor": "#00000000",
       "textColor": "#00000000",
@@ -226,11 +255,24 @@
       "type": "filter"
     },
     {
-      "id": "dolby-digital",
+      "id": "dts-x",
       "groupId": "audio-tech",
-      "name": "Dolby Digital",
-      "pattern": "(?i)\\b(dd[\\s._-]*[0-9][\\s._-]*[0-9]|dd|dolby[\\s._-]*digital|ac-?3)(?![\\s._-]*plus|\\+|p|[a-z])",
-      "imageURL": "https://raw.githubusercontent.com/leonevz/Elite-Badges/main/Badges/dolby_digital.png",
+      "name": "DTS:X",
+      "pattern": "(?i)\\b(dts[:\\s._-]*x)\\b",
+      "imageURL": "https://raw.githubusercontent.com/leonevz/Elite-Badges/main/Badges/dts_x.png",
+      "tagColor": "#00000000",
+      "borderColor": "#00000000",
+      "textColor": "#00000000",
+      "tagStyle": "filled and bordered",
+      "isEnabled": true,
+      "type": "filter"
+    },
+    {
+      "id": "dts-hd-master-audio",
+      "groupId": "audio-tech",
+      "name": "DTS-HD MA",
+      "pattern": "(?i)\\b(dts[\\s._-]*hd[\\s._-]*ma|dtshd\\s*ma|dts[\\s._-]*hd[\\s._-]*master)\\b",
+      "imageURL": "https://raw.githubusercontent.com/leonevz/Elite-Badges/main/Badges/dts_hd_master_audio.png",
       "tagColor": "#00000000",
       "borderColor": "#00000000",
       "textColor": "#00000000",
@@ -304,19 +346,6 @@
       "type": "filter"
     },
     {
-      "id": "webdl",
-      "groupId": "source",
-      "name": "WEB-DL",
-      "pattern": "(?i)\\b(web[\\s._-]?dl|webdl)\\b",
-      "imageURL": "https://raw.githubusercontent.com/leonevz/Elite-Badges/main/Badges/WEBDL_transparent_4x.png",
-      "tagColor": "#00000000",
-      "borderColor": "#00000000",
-      "textColor": "#00000000",
-      "tagStyle": "filled and bordered",
-      "isEnabled": true,
-      "type": "filter"
-    },
-    {
       "id": "blu-ray-disc",
       "groupId": "source",
       "name": "Blu-ray Disc",
@@ -330,11 +359,24 @@
       "type": "filter"
     },
     {
-      "id": "dvd-rip",
+      "id": "webdl",
       "groupId": "source",
-      "name": "DVD RIP",
-      "pattern": "(?i)\\b(dvd[\\s._-]?rip|dvdrip)\\b",
-      "imageURL": "https://raw.githubusercontent.com/leonevz/Elite-Badges/main/Badges/DVD_RIP_transparent_4x.png",
+      "name": "WEB-DL",
+      "pattern": "(?i)\\b(web[\\s._-]?dl|webdl)\\b",
+      "imageURL": "https://raw.githubusercontent.com/leonevz/Elite-Badges/main/Badges/WEBDL_transparent_4x.png",
+      "tagColor": "#00000000",
+      "borderColor": "#00000000",
+      "textColor": "#00000000",
+      "tagStyle": "filled and bordered",
+      "isEnabled": true,
+      "type": "filter"
+    },
+    {
+      "id": "webrip",
+      "groupId": "source",
+      "name": "WEBRip",
+      "pattern": "(?i)\\b(web[\\s._-]?rip|webrip)\\b",
+      "imageURL": "https://raw.githubusercontent.com/leonevz/Elite-Badges/main/Badges/WEBRip_transparent_4x.png",
       "tagColor": "#00000000",
       "borderColor": "#00000000",
       "textColor": "#00000000",
@@ -356,11 +398,11 @@
       "type": "filter"
     },
     {
-      "id": "webrip",
+      "id": "dvd-rip",
       "groupId": "source",
-      "name": "WEBRip",
-      "pattern": "(?i)\\b(web[\\s._-]?rip|webrip)\\b",
-      "imageURL": "https://raw.githubusercontent.com/leonevz/Elite-Badges/main/Badges/WEBRip_transparent_4x.png",
+      "name": "DVD RIP",
+      "pattern": "(?i)\\b(dvd[\\s._-]?rip|dvdrip)\\b",
+      "imageURL": "https://raw.githubusercontent.com/leonevz/Elite-Badges/main/Badges/DVD_RIP_transparent_4x.png",
       "tagColor": "#00000000",
       "borderColor": "#00000000",
       "textColor": "#00000000",
@@ -419,57 +461,188 @@
       "tagStyle": "filled and bordered",
       "isEnabled": true,
       "type": "filter"
-    }
-  ],
-  "groups": [
-    {
-      "id": "resolution",
-      "name": "Resolution",
-      "color": "#00000000",
-      "borderColor": "#00000000",
-      "isExpanded": true
     },
     {
-      "id": "video-tech",
-      "name": "Video Tech",
-      "color": "#00000000",
+      "id": "netflix",
+      "groupId": "platforms",
+      "name": "Netflix",
+      "pattern": "(?i)\\b(netflix|nflx)\\b",
+      "imageURL": "https://cdn.simpleicons.org/netflix/E50914",
+      "tagColor": "#00000000",
       "borderColor": "#00000000",
-      "isExpanded": true
+      "textColor": "#00000000",
+      "tagStyle": "filled and bordered",
+      "isEnabled": true,
+      "type": "filter"
     },
     {
-      "id": "audio-tech",
-      "name": "Audio Tech",
-      "color": "#00000000",
+      "id": "prime-video",
+      "groupId": "platforms",
+      "name": "Prime Video",
+      "pattern": "(?i)\\b(amazon|prime\\s*video|amzn)\\b",
+      "imageURL": "https://cdn.simpleicons.org/amazonprime/00A8E0",
+      "tagColor": "#00000000",
       "borderColor": "#00000000",
-      "isExpanded": true
+      "textColor": "#00000000",
+      "tagStyle": "filled and bordered",
+      "isEnabled": true,
+      "type": "filter"
     },
     {
-      "id": "audio-channels",
-      "name": "Audio Channels",
-      "color": "#00000000",
+      "id": "disney-plus",
+      "groupId": "platforms",
+      "name": "Disney+",
+      "pattern": "(?i)\\b(disney\\+|disney\\s*plus|dsnp)\\b",
+      "imageURL": "https://cdn.simpleicons.org/disney/113CCF",
+      "tagColor": "#00000000",
       "borderColor": "#00000000",
-      "isExpanded": true
+      "textColor": "#00000000",
+      "tagStyle": "filled and bordered",
+      "isEnabled": true,
+      "type": "filter"
     },
     {
-      "id": "source",
-      "name": "Source",
-      "color": "#00000000",
+      "id": "hotstar",
+      "groupId": "platforms",
+      "name": "Hotstar",
+      "pattern": "(?i)\\b(hotstar|jiohotstar|hs)\\b",
+      "imageURL": "https://cdn.simpleicons.org/hotstar/1F80E0",
+      "tagColor": "#00000000",
       "borderColor": "#00000000",
-      "isExpanded": true
+      "textColor": "#00000000",
+      "tagStyle": "filled and bordered",
+      "isEnabled": true,
+      "type": "filter"
     },
     {
-      "id": "video-codec",
-      "name": "Video Codec",
-      "color": "#00000000",
+      "id": "apple-tv",
+      "groupId": "platforms",
+      "name": "Apple TV+",
+      "pattern": "(?i)\\b(apple\\s*tv\\+?|atvp)\\b",
+      "imageURL": "https://cdn.simpleicons.org/appletv/ffffff",
+      "tagColor": "#00000000",
       "borderColor": "#00000000",
-      "isExpanded": true
+      "textColor": "#00000000",
+      "tagStyle": "filled and bordered",
+      "isEnabled": true,
+      "type": "filter"
     },
     {
-      "id": "bit-depth",
-      "name": "Bit Depth",
-      "color": "#00000000",
+      "id": "zee5",
+      "groupId": "platforms",
+      "name": "Zee5",
+      "pattern": "(?i)\\bzee\\s*5\\b",
+      "imageURL": "https://cdn.simpleicons.org/zee5/8B2FC9",
+      "tagColor": "#00000000",
       "borderColor": "#00000000",
-      "isExpanded": true
+      "textColor": "#00000000",
+      "tagStyle": "filled and bordered",
+      "isEnabled": true,
+      "type": "filter"
+    },
+    {
+      "id": "sonyliv",
+      "groupId": "platforms",
+      "name": "SonyLIV",
+      "pattern": "(?i)\\b(sonyliv|sony\\s*liv)\\b",
+      "imageURL": "https://cdn.simpleicons.org/sonyliv/0055D4",
+      "tagColor": "#00000000",
+      "borderColor": "#00000000",
+      "textColor": "#00000000",
+      "tagStyle": "filled and bordered",
+      "isEnabled": true,
+      "type": "filter"
+    },
+    {
+      "id": "hulu",
+      "groupId": "platforms",
+      "name": "Hulu",
+      "pattern": "(?i)\\bhulu\\b",
+      "imageURL": "https://cdn.simpleicons.org/hulu/1CE783",
+      "tagColor": "#00000000",
+      "borderColor": "#00000000",
+      "textColor": "#00000000",
+      "tagStyle": "filled and bordered",
+      "isEnabled": true,
+      "type": "filter"
+    },
+    {
+      "id": "hbo-max",
+      "groupId": "platforms",
+      "name": "HBO Max",
+      "pattern": "(?i)\\b(hbo\\s*max|hbo|max)\\b",
+      "imageURL": "https://cdn.simpleicons.org/hbo/B92CD4",
+      "tagColor": "#00000000",
+      "borderColor": "#00000000",
+      "textColor": "#00000000",
+      "tagStyle": "filled and bordered",
+      "isEnabled": true,
+      "type": "filter"
+    },
+    {
+      "id": "peacock",
+      "groupId": "platforms",
+      "name": "Peacock",
+      "pattern": "(?i)\\bpeacock\\b",
+      "imageURL": "https://cdn.simpleicons.org/peacock/F5A300",
+      "tagColor": "#00000000",
+      "borderColor": "#00000000",
+      "textColor": "#00000000",
+      "tagStyle": "filled and bordered",
+      "isEnabled": true,
+      "type": "filter"
+    },
+    {
+      "id": "paramount-plus",
+      "groupId": "platforms",
+      "name": "Paramount+",
+      "pattern": "(?i)\\b(paramount\\+|paramount\\s*plus|pmtp)\\b",
+      "imageURL": "https://cdn.simpleicons.org/paramount/0064FF",
+      "tagColor": "#00000000",
+      "borderColor": "#00000000",
+      "textColor": "#00000000",
+      "tagStyle": "filled and bordered",
+      "isEnabled": true,
+      "type": "filter"
+    },
+    {
+      "id": "crunchyroll",
+      "groupId": "platforms",
+      "name": "Crunchyroll",
+      "pattern": "(?i)\\b(crunchyroll|crunchy)\\b",
+      "imageURL": "https://cdn.simpleicons.org/crunchyroll/F47521",
+      "tagColor": "#00000000",
+      "borderColor": "#00000000",
+      "textColor": "#00000000",
+      "tagStyle": "filled and bordered",
+      "isEnabled": true,
+      "type": "filter"
+    },
+    {
+      "id": "youtube",
+      "groupId": "platforms",
+      "name": "YouTube",
+      "pattern": "(?i)\\b(youtube|yt)\\b",
+      "imageURL": "https://cdn.simpleicons.org/youtube/FF0000",
+      "tagColor": "#00000000",
+      "borderColor": "#00000000",
+      "textColor": "#00000000",
+      "tagStyle": "filled and bordered",
+      "isEnabled": true,
+      "type": "filter"
+    },
+    {
+      "id": "mubi",
+      "groupId": "platforms",
+      "name": "Mubi",
+      "pattern": "(?i)\\bmubi\\b",
+      "imageURL": "https://cdn.simpleicons.org/mubi/2C2F30",
+      "tagColor": "#00000000",
+      "borderColor": "#00000000",
+      "textColor": "#00000000",
+      "tagStyle": "filled and bordered",
+      "isEnabled": true,
+      "type": "filter"
     }
   ]
 }
