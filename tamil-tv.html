@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="ta" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<meta name="theme-color" content="#0a0a0f">
+<title>Tamil TV</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300..700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0a0a0f;--surface:#13131a;--surface2:#1c1c26;--surface3:#242432;--border:rgba(255,255,255,0.07);--text:#e8e8f0;--muted:#7a7a9a;--faint:#3a3a52;--accent:#e8372a;--accent2:#ff6b35;--gold:#FFD700;--radius-sm:6px;--radius-md:10px;--radius-lg:16px;--font:'Inter',sans-serif}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-font-smoothing:antialiased}
+body{font-family:var(--font);background:var(--bg);color:var(--text);min-height:100dvh;overflow-x:hidden}
+img{display:block;max-width:100%;height:auto}
+button{cursor:pointer;background:none;border:none;font:inherit;color:inherit}
+::-webkit-scrollbar{width:4px;height:4px}
+::-webkit-scrollbar-thumb{background:var(--faint);border-radius:99px}
+#header{position:sticky;top:0;z-index:100;background:rgba(10,10,15,0.97);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);padding:12px 16px;display:flex;align-items:center;gap:10px}
+.logo-text{font-size:18px;font-weight:800;background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.logo-sub{font-size:10px;color:var(--muted);margin-top:-2px}
+#search-wrap{flex:1;position:relative}
+#search{width:100%;background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius-md);color:var(--text);padding:9px 12px 9px 34px;font-size:14px;outline:none;transition:border-color 0.15s}
+#search:focus{border-color:var(--accent)}
+#search::placeholder{color:var(--muted)}
+.search-icon{position:absolute;left:10px;top:50%;transform:translateY(-50%);color:var(--muted);pointer-events:none}
+#nav{display:flex;overflow-x:auto;gap:4px;padding:10px 16px;border-bottom:1px solid var(--border);scrollbar-width:none}
+#nav::-webkit-scrollbar{display:none}
+.nav-btn{flex-shrink:0;padding:7px 16px;border-radius:var(--radius-sm);font-size:12px;font-weight:600;color:var(--muted);transition:all 0.15s;white-space:nowrap}
+.nav-btn.active{background:var(--accent);color:#fff}
+#main{padding:16px}
+.card-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(100px,1fr));gap:10px}
+@media(min-width:480px){.card-grid{grid-template-columns:repeat(auto-fill,minmax(120px,1fr))}}
+@media(min-width:768px){.card-grid{grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:14px}}
+@media(min-width:1200px){.card-grid{grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:16px}#main{padding:24px 32px}}
+.card{border-radius:var(--radius-md);overflow:hidden;background:var(--surface);border:1px solid var(--border);cursor:pointer;transition:transform 0.15s,box-shadow 0.15s,border-color 0.15s;outline:none}
+.card:hover,.card:focus{transform:translateY(-3px) scale(1.02);box-shadow:0 12px 32px rgba(0,0,0,0.5);border-color:rgba(232,55,42,0.4)}
+.card-poster{position:relative;aspect-ratio:2/3;background:var(--surface2);overflow:hidden}
+.card-poster img{width:100%;height:100%;object-fit:cover;transition:transform 0.3s}
+.card:hover .card-poster img{transform:scale(1.05)}
+.badge-type{position:absolute;top:6px;left:6px;background:rgba(0,0,0,0.75);backdrop-filter:blur(4px);color:var(--gold);font-size:9px;font-weight:700;padding:3px 6px;border-radius:4px;text-transform:uppercase}
+.badge-year{position:absolute;bottom:6px;right:6px;background:rgba(0,0,0,0.7);color:var(--muted);font-size:9px;padding:2px 5px;border-radius:3px}
+.poster-placeholder{width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,var(--surface2),var(--surface3));color:var(--faint);font-size:32px}
+.card-info{padding:8px 8px 10px}
+.card-title{font-size:11px;font-weight:600;line-height:1.35;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.card-meta{font-size:10px;color:var(--muted);margin-top:3px}
+@keyframes shimmer{0%{background-position:-200% 0}100%{background-position:200% 0}}
+.skeleton{background:linear-gradient(90deg,var(--surface) 25%,var(--surface2) 50%,var(--surface) 75%);background-size:200% 100%;animation:shimmer 1.4s ease-in-out infinite;border-radius:var(--radius-md)}
+.skel-card{border-radius:var(--radius-md);overflow:hidden;border:1px solid var(--border)}
+.skel-poster{aspect-ratio:2/3;width:100%}
+.skel-line{height:10px;margin:8px 8px 4px;border-radius:4px}
+.skel-line2{height:9px;width:60%;margin:0 8px 10px;border-radius:4px}
+#modal{position:fixed;inset:0;z-index:200;background:rgba(0,0,0,0.85);backdrop-filter:blur(8px);display:none;align-items:flex-end;justify-content:center}
+#modal.open{display:flex}
+#modal-inner{width:100%;max-width:640px;background:var(--surface);border-radius:var(--radius-lg) var(--radius-lg) 0 0;border:1px solid var(--border);border-bottom:none;max-height:90dvh;overflow-y:auto;animation:slideUp 0.25s cubic-bezier(0.16,1,0.3,1)}
+@keyframes slideUp{from{transform:translateY(100%);opacity:0}to{transform:translateY(0);opacity:1}}
+@media(min-width:640px){#modal{align-items:center;padding:20px}#modal-inner{border-radius:var(--radius-lg);border-bottom:1px solid var(--border);max-height:85dvh}}
+.modal-drag{width:36px;height:4px;background:var(--faint);border-radius:2px;margin:10px auto 0}
+.modal-header{display:flex;gap:14px;padding:16px 16px 12px}
+.modal-poster{width:80px;height:120px;border-radius:var(--radius-sm);object-fit:cover;background:var(--surface2);flex-shrink:0}
+.modal-poster-ph{width:80px;height:120px;border-radius:var(--radius-sm);background:var(--surface2);display:flex;align-items:center;justify-content:center;color:var(--faint);font-size:28px;flex-shrink:0}
+.modal-meta{flex:1;min-width:0}
+.modal-title{font-size:16px;font-weight:700;line-height:1.25;margin-bottom:4px}
+.modal-tags{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:8px}
+.tag{font-size:10px;font-weight:600;padding:2px 8px;border-radius:var(--radius-sm);background:var(--surface3);color:var(--muted);border:1px solid var(--border)}
+.tag.accent{background:rgba(232,55,42,0.15);color:var(--accent);border-color:rgba(232,55,42,0.3)}
+.modal-desc{font-size:12px;color:var(--muted);line-height:1.55;padding:0 16px 12px;border-bottom:1px solid var(--border)}
+.streams-label{padding:12px 16px 8px;font-size:11px;font-weight:700;letter-spacing:0.1em;color:var(--muted)}
+#streams-list{padding:0 16px 20px}
+.stream-item{display:flex;align-items:center;gap:10px;padding:11px 12px;background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius-md);margin-bottom:8px;cursor:pointer;transition:all 0.15s;outline:none}
+.stream-item:hover,.stream-item:focus{border-color:rgba(232,55,42,0.5);background:var(--surface3)}
+.stream-play{width:32px;height:32px;background:var(--accent);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.stream-info{flex:1;min-width:0}
+.stream-name{font-size:12px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.stream-badges{display:flex;flex-wrap:wrap;gap:4px;margin-top:4px}
+.stream-badge-img{height:18px;width:auto;border-radius:2px}
+.stream-size{font-size:10px;color:var(--muted);flex-shrink:0;text-align:right}
+.stream-addon{font-size:9px;color:var(--faint);margin-top:1px}
+.no-streams{text-align:center;padding:24px 0;color:var(--muted);font-size:13px}
+.modal-close{position:absolute;top:12px;right:12px;width:28px;height:28px;background:var(--surface2);border-radius:50%;display:flex;align-items:center;justify-content:center;color:var(--muted);z-index:10}
+#status{position:fixed;bottom:16px;left:50%;transform:translateX(-50%) translateY(80px);background:var(--surface3);border:1px solid var(--border);border-radius:99px;padding:8px 18px;font-size:12px;color:var(--text);z-index:300;transition:transform 0.2s;white-space:nowrap}
+#status.show{transform:translateX(-50%) translateY(0)}
+.spinner{width:24px;height:24px;border:2px solid var(--surface3);border-top-color:var(--accent);border-radius:50%;animation:spin 0.7s linear infinite;margin:0 auto 10px}
+@keyframes spin{to{transform:rotate(360deg)}}
+#empty{display:none;text-align:center;padding:60px 20px;color:var(--muted)}
+#empty.show{display:block}
+#empty .icon{font-size:48px;margin-bottom:12px}
+#empty h3{font-size:16px;color:var(--text);margin-bottom:6px}
+</style>
+</head>
+<body>
+<header id="header">
+  <div style="flex-shrink:0">
+    <div class="logo-text">▶ Tamil TV</div>
+    <div class="logo-sub">STREAM</div>
+  </div>
+  <div id="search-wrap">
+    <svg class="search-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+    <input id="search" type="text" placeholder="Search movies, series..." autocomplete="off" spellcheck="false">
+  </div>
+  <button onclick="openSettings()" aria-label="Settings" style="flex-shrink:0;width:34px;height:34px;background:var(--surface2);border:1px solid var(--border);border-radius:8px;display:flex;align-items:center;justify-content:center;color:var(--muted)">⚙️</button>
+</header>
+<nav id="nav"></nav>
+<main id="main">
+  <div id="skeletons" class="card-grid"></div>
+  <div id="grid" class="card-grid" role="list"></div>
+  <div id="empty"><div class="icon">🎬</div><h3>No results found</h3><p>Try a different search or category</p></div>
+</main>
+<div id="modal" role="dialog" aria-modal="true">
+  <div id="modal-inner">
+    <div class="modal-drag"></div>
+    <button class="modal-close" id="modal-close" aria-label="Close">✕</button>
+    <div class="modal-header">
+      <div id="modal-poster-wrap"></div>
+      <div class="modal-meta">
+        <div class="modal-title" id="modal-title">—</div>
+        <div class="modal-tags" id="modal-tags"></div>
+        <div style="font-size:11px;color:var(--muted)" id="modal-extra"></div>
+      </div>
+    </div>
+    <div class="modal-desc" id="modal-desc"></div>
+    <div class="streams-label">AVAILABLE STREAMS</div>
+    <div id="streams-list"></div>
+  </div>
+</div>
+<div id="status"></div>
+<script>
+const CATALOG_ADDON='https://tamil-ott-addon.onrender.com';
+const STREAM_ADDONS=[
+  {name:'AIOStreams',url:''},
+  {name:'Tamil OTT',url:'https://tamil-ott-addon.onrender.com'}
+];
+const BADGES_URL='https://raw.githubusercontent.com/kanandhkumar/Stream-formatter/main/badges.json';
+let manifest=null,catalogs=[],currentCatalog=null,badgeFilters=[],searchTimer=null;
+
+// Load saved settings immediately
+(function(){
+  const aio=localStorage.getItem('aio_url');
+  const cat=localStorage.getItem('catalog_url');
+  if(aio)STREAM_ADDONS[0].url=aio;
+  if(cat)window._catalogUrl=cat;
+})();
+
+async function loadBadges(){
+  try{const r=await fetch(BADGES_URL);const d=await r.json();badgeFilters=d.filters||[];}catch(e){badgeFilters=[];}
+}
+function getBadgesForStream(t){
+  if(!t||!badgeFilters.length)return[];
+  return badgeFilters.filter(f=>{try{return new RegExp(f.pattern,'i').test(t);}catch(e){return false;}});
+}
+function renderBadgeImgs(badges){
+  return badges.slice(0,6).map(b=>`<img class="stream-badge-img" src="${b.imageURL}" alt="${b.name}" loading="lazy" onerror="this.style.display='none'">`).join('');
+}
+function toast(msg,d=2500){
+  const el=document.getElementById('status');
+  el.textContent=msg;el.classList.add('show');
+  setTimeout(()=>el.classList.remove('show'),d);
+}
+function showSkeletons(n=12){
+  document.getElementById('skeletons').innerHTML=Array(n).fill(0).map(()=>`<div class="skel-card"><div class="skel-poster skeleton"></div><div class="skel-line skeleton"></div><div class="skel-line2 skeleton"></div></div>`).join('');
+}
+function hideSkeletons(){document.getElementById('skeletons').innerHTML='';}
+
+async function init(){
+  showSkeletons();
+  await loadBadges();
+  await loadManifest();
+}
+async function loadManifest(){
+  try{
+    const base=window._catalogUrl||CATALOG_ADDON;
+    const r=await fetch(`${base}/manifest.json`);
+    manifest=await r.json();
+    catalogs=(manifest.catalogs||[]).filter(c=>c.type&&c.id);
+    buildNav();
+    if(catalogs.length)loadCatalog(catalogs[0]);
+    else{hideSkeletons();showOffline();}
+  }catch(e){hideSkeletons();showOffline();}
+}
+function showOffline(){
+  document.getElementById('empty').innerHTML=`<div class="icon">😴</div><h3>Addon is waking up…</h3><p style="font-size:12px;margin-top:6px">Visit <a href="${CATALOG_ADDON}" target="_blank" style="color:var(--accent)">${CATALOG_ADDON}</a> to wake it, then retry.</p><button onclick="init()" style="margin-top:14px;padding:10px 20px;background:var(--accent);color:#fff;border-radius:8px;font-size:13px;font-weight:700">🔄 Retry</button>`;
+  document.getElementById('empty').classList.add('show');
+}
+function buildNav(){
+  document.getElementById('nav').innerHTML=catalogs.map((c,i)=>`<button class="nav-btn${i===0?' active':''}" onclick="selectCatalog(${i})">${c.name||c.id}</button>`).join('');
+}
+function selectCatalog(idx){
+  document.querySelectorAll('.nav-btn').forEach((b,i)=>b.classList.toggle('active',i===idx));
+  loadCatalog(catalogs[idx]);
+}
+async function loadCatalog(cat){
+  currentCatalog=cat;
+  document.getElementById('grid').innerHTML='';
+  document.getElementById('empty').classList.remove('show');
+  showSkeletons();
+  try{
+    const base=window._catalogUrl||CATALOG_ADDON;
+    const r=await fetch(`${base}/catalog/${cat.type}/${cat.id}.json`);
+    const d=await r.json();
+    hideSkeletons();renderCards(d.metas||[]);
+  }catch(e){hideSkeletons();toast('Failed to load catalog');}
+}
+function renderCards(metas){
+  const grid=document.getElementById('grid');
+  if(!metas.length){document.getElementById('empty').classList.add('show');return;}
+  grid.innerHTML='';
+  metas.forEach(m=>{
+    const card=document.createElement('div');
+    card.className='card';card.setAttribute('tabindex','0');
+    card.innerHTML=`<div class="card-poster">${m.poster?`<img src="${m.poster}" alt="${esc(m.name)}" loading="lazy" onerror="this.parentElement.innerHTML='<div class=poster-placeholder>🎬</div>'">`:'<div class="poster-placeholder">🎬</div>'}<span class="badge-type">${m.type==='series'?'SERIES':'FILM'}</span>${m.year?`<span class="badge-year">${m.year}</span>`:''}</div><div class="card-info"><div class="card-title">${esc(m.name)}</div>${m.genres?`<div class="card-meta">${m.genres.slice(0,2).join(' · ')}</div>`:''}</div>`;
+    card.addEventListener('click',()=>openDetail(m));
+    card.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();openDetail(m);}});
+    grid.appendChild(card);
+  });
+}
+document.getElementById('search').addEventListener('input',e=>{
+  clearTimeout(searchTimer);
+  const q=e.target.value.trim();
+  if(!q){if(currentCatalog)loadCatalog(currentCatalog);return;}
+  searchTimer=setTimeout(()=>doSearch(q),400);
+});
+async function doSearch(q){
+  document.getElementById('grid').innerHTML='';
+  document.getElementById('empty').classList.remove('show');
+  showSkeletons(8);
+  let results=[];
+  for(const cat of catalogs){
+    try{
+      const base=window._catalogUrl||CATALOG_ADDON;
+      const r=await fetch(`${base}/catalog/${cat.type}/${cat.id}/search=${encodeURIComponent(q)}.json`);
+      const d=await r.json();
+      if(d.metas?.length){results=d.metas;break;}
+    }catch(e){}
+  }
+  hideSkeletons();
+  if(!results.length){
+    try{
+      const base=window._catalogUrl||CATALOG_ADDON;
+      const r=await fetch(`${base}/catalog/${catalogs[0].type}/${catalogs[0].id}.json`);
+      const d=await r.json();
+      results=(d.metas||[]).filter(m=>m.name?.toLowerCase().includes(q.toLowerCase()));
+    }catch(e){}
+  }
+  renderCards(results);
+}
+async function openDetail(meta){
+  const modal=document.getElementById('modal');
+  document.getElementById('modal-title').textContent=meta.name;
+  document.getElementById('modal-desc').textContent=meta.description||'No description available.';
+  document.getElementById('modal-tags').innerHTML=[meta.year&&`<span class="tag">${meta.year}</span>`,`<span class="tag accent">${meta.type==='series'?'Series':'Film'}</span>`,...(meta.genres||[]).slice(0,3).map(g=>`<span class="tag">${g}</span>`)].filter(Boolean).join('');
+  document.getElementById('modal-extra').textContent=[meta.runtime,meta.director&&`Dir: ${meta.director}`].filter(Boolean).join(' · ');
+  const pw=document.getElementById('modal-poster-wrap');
+  pw.innerHTML=meta.poster?`<img class="modal-poster" src="${meta.poster}" alt="${esc(meta.name)}" loading="lazy" onerror="this.outerHTML='<div class=modal-poster-ph>🎬</div>'">`:'<div class="modal-poster-ph">🎬</div>';
+  document.getElementById('streams-list').innerHTML='<div class="no-streams"><div class="spinner"></div>Fetching streams…</div>';
+  modal.classList.add('open');
+  document.body.style.overflow='hidden';
+  await fetchStreams(meta.id,meta.type||'movie');
+}
+async function fetchStreams(id,type){
+  const streamsList=document.getElementById('streams-list');
+  const active=STREAM_ADDONS.filter(a=>a.url);
+  if(!active.length){
+    streamsList.innerHTML=`<div class="no-streams">⚙️ No stream source set<br><button onclick="openSettings()" style="margin-top:10px;padding:8px 16px;background:var(--accent);color:#fff;border-radius:8px;font-size:12px;font-weight:700">Add AIOStreams URL</button></div>`;
+    return;
+  }
+  const results=await Promise.allSettled(active.map(async addon=>{
+    const url=`${addon.url}/stream/${type}/${encodeURIComponent(id)}.json`;
+    const r=await fetch(url,{signal:AbortSignal.timeout(10000)});
+    if(!r.ok)throw new Error(`HTTP ${r.status}`);
+    const d=await r.json();
+    return(d.streams||[]).map(s=>({...s,_addonName:addon.name}));
+  }));
+  const all=results.filter(r=>r.status==='fulfilled').flatMap(r=>r.value);
+  if(!all.length){
+    const errs=results.map((r,i)=>r.status==='rejected'?`${active[i].name}: ${r.reason?.message}`:null).filter(Boolean).join(' | ');
+    streamsList.innerHTML=`<div class="no-streams">😔 No streams found<br><span style="font-size:10px;color:var(--faint);display:block;margin-top:5px">${esc(errs)}</span></div>`;
+    return;
+  }
+  streamsList.innerHTML=all.map((s,i)=>{
+    const title=s.title||s.name||`Stream ${i+1}`;
+    const badges=getBadgesForStream(title);
+    const badgeHTML=badges.length?`<div class="stream-badges">${renderBadgeImgs(badges)}</div>`:'';
+    const size=fmtBytes(s.behaviorHints?.videoSize);
+    const playUrl=s.url||(s.infoHash?`magnet:?xt=urn:btih:${s.infoHash}`:'');
+    return `<div class="stream-item" tabindex="0" onclick="playStream('${encodeURIComponent(playUrl)}')"><div class="stream-play"><svg width="12" height="12" viewBox="0 0 24 24" fill="white"><polygon points="5,3 19,12 5,21"/></svg></div><div class="stream-info"><div class="stream-name">${esc(title)}</div>${badgeHTML}<div class="stream-addon">${esc(s._addonName||'')}</div></div>${size?`<div class="stream-size">${size}</div>`:''}</div>`;
+  }).join('');
+}
+function playStream(encoded){
+  const url=decodeURIComponent(encoded);
+  if(!url){toast('No playable URL');return;}
+  toast('Opening…');window.open(url,'_blank','noopener noreferrer');
+}
+document.getElementById('modal-close').addEventListener('click',closeModal);
+document.getElementById('modal').addEventListener('click',e=>{if(e.target===document.getElementById('modal'))closeModal();});
+function closeModal(){document.getElementById('modal').classList.remove('open');document.body.style.overflow='';}
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal();if(e.keyCode===10009){e.preventDefault();closeModal();}});
+function openSettings(){
+  let sm=document.getElementById('settings-modal');
+  if(sm){sm.style.display='flex';return;}
+  sm=document.createElement('div');
+  sm.id='settings-modal';
+  sm.style.cssText='position:fixed;inset:0;z-index:300;background:rgba(0,0,0,0.85);backdrop-filter:blur(8px);display:flex;align-items:flex-end;justify-content:center';
+  sm.innerHTML=`<div style="width:100%;max-width:540px;background:var(--surface);border-radius:16px 16px 0 0;border:1px solid var(--border);padding:20px 16px 40px;animation:slideUp 0.25s cubic-bezier(0.16,1,0.3,1)"><div style="width:36px;height:4px;background:var(--faint);border-radius:2px;margin:0 auto 16px"></div><div style="font-size:15px;font-weight:700;margin-bottom:16px">⚙️ Stream Sources</div><label style="font-size:10px;font-weight:700;letter-spacing:0.1em;color:var(--muted);display:block;margin-bottom:6px">AIOSTREAMS BASE URL</label><input id="aio-input" type="url" placeholder="https://aiostreams.elfhosted.com/..." value="${STREAM_ADDONS[0].url}" style="width:100%;background:var(--surface2);border:1px solid var(--border);border-radius:8px;color:var(--text);padding:10px 12px;font-size:13px;outline:none;box-sizing:border-box;margin-bottom:6px"><p style="font-size:10px;color:var(--faint);margin-bottom:14px">Paste your AIOStreams URL without /manifest.json at the end</p><label style="font-size:10px;font-weight:700;letter-spacing:0.1em;color:var(--muted);display:block;margin-bottom:6px">CATALOG SOURCE (Tamil OTT Addon)</label><input id="catalog-input" type="url" value="${window._catalogUrl||CATALOG_ADDON}" style="width:100%;background:var(--surface2);border:1px solid var(--border);border-radius:8px;color:var(--text);padding:10px 12px;font-size:13px;outline:none;box-sizing:border-box;margin-bottom:20px"><button onclick="saveSettings()" style="width:100%;padding:13px;background:var(--accent);color:#fff;border:none;border-radius:10px;font-size:14px;font-weight:800;cursor:pointer">Save & Reload</button><button onclick="document.getElementById('settings-modal').style.display='none'" style="width:100%;padding:10px;background:none;color:var(--muted);border:none;font-size:13px;cursor:pointer;margin-top:6px">Cancel</button></div>`;
+  document.body.appendChild(sm);
+  sm.addEventListener('click',e=>{if(e.target===sm)sm.style.display='none';});
+}
+function saveSettings(){
+  const aio=document.getElementById('aio-input').value.trim().replace(//+$/,'');
+  const cat=document.getElementById('catalog-input').value.trim().replace(//+$/,'');
+  if(aio){localStorage.setItem('aio_url',aio);STREAM_ADDONS[0].url=aio;}
+  if(cat){localStorage.setItem('catalog_url',cat);window._catalogUrl=cat;}
+  document.getElementById('settings-modal').style.display='none';
+  toast('Saved! Reloading…');setTimeout(()=>location.reload(),800);
+}
+function esc(s){return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+function fmtBytes(b){if(!b||b<1024)return'';if(b<1024**3)return(b/1024**2).toFixed(0)+' MB';return(b/1024**3).toFixed(1)+' GB';}
+init();
+</script>
+</body>
+</html>
