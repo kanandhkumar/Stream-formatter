@@ -643,6 +643,84 @@
       "tagStyle": "filled and bordered",
       "isEnabled": true,
       "type": "filter"
+    },
+    {
+      "id": "discovery-plus",
+      "groupId": "platforms",
+      "name": "Discovery+",
+      "pattern": "(?i)\\b(discovery\\+|discovery\\s*plus)\\b",
+      "imageURL": "https://cdn.simpleicons.org/discoveryplus/F68121",
+      "tagColor": "#00000000",
+      "borderColor": "#00000000",
+      "textColor": "#00000000",
+      "tagStyle": "filled and bordered",
+      "isEnabled": true,
+      "type": "filter"
+    },
+    {
+      "id": "plex",
+      "groupId": "platforms",
+      "name": "Plex",
+      "pattern": "(?i)\\bplex\\b",
+      "imageURL": "https://cdn.simpleicons.org/plex/E5A00D",
+      "tagColor": "#00000000",
+      "borderColor": "#00000000",
+      "textColor": "#00000000",
+      "tagStyle": "filled and bordered",
+      "isEnabled": true,
+      "type": "filter"
+    },
+    {
+      "id": "tubi",
+      "groupId": "platforms",
+      "name": "Tubi",
+      "pattern": "(?i)\\btubi\\b",
+      "imageURL": "https://cdn.simpleicons.org/tubi/F52936",
+      "tagColor": "#00000000",
+      "borderColor": "#00000000",
+      "textColor": "#00000000",
+      "tagStyle": "filled and bordered",
+      "isEnabled": true,
+      "type": "filter"
+    },
+    {
+      "id": "twitch",
+      "groupId": "platforms",
+      "name": "Twitch",
+      "pattern": "(?i)\\btwitch\\b",
+      "imageURL": "https://cdn.simpleicons.org/twitch/9146FF",
+      "tagColor": "#00000000",
+      "borderColor": "#00000000",
+      "textColor": "#00000000",
+      "tagStyle": "filled and bordered",
+      "isEnabled": true,
+      "type": "filter"
+    },
+    {
+      "id": "bbc-iplayer",
+      "groupId": "platforms",
+      "name": "BBC iPlayer",
+      "pattern": "(?i)\\b(bbc\\s*iplayer|iplayer)\\b",
+      "imageURL": "https://cdn.simpleicons.org/bbciplayer/F54997",
+      "tagColor": "#00000000",
+      "borderColor": "#00000000",
+      "textColor": "#00000000",
+      "tagStyle": "filled and bordered",
+      "isEnabled": true,
+      "type": "filter"
+    },
+    {
+      "id": "vudu",
+      "groupId": "platforms",
+      "name": "Vudu",
+      "pattern": "(?i)\\bvudu\\b",
+      "imageURL": "https://cdn.simpleicons.org/vudu/3399FF",
+      "tagColor": "#00000000",
+      "borderColor": "#00000000",
+      "textColor": "#00000000",
+      "tagStyle": "filled and bordered",
+      "isEnabled": true,
+      "type": "filter"
     }
   ]
 }
