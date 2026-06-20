@@ -645,11 +645,11 @@
       "type": "filter"
     },
     {
-      "id": "discovery-plus",
+      "id": "discovery",
       "groupId": "platforms",
-      "name": "Discovery+",
-      "pattern": "(?i)\\b(discovery\\+|discovery\\s*plus)\\b",
-      "imageURL": "https://cdn.simpleicons.org/discoveryplus/F68121",
+      "name": "Discovery",
+      "pattern": "(?i)\\b(discovery\\+|discovery\\s*plus|discovery)\\b",
+      "imageURL": "https://cdn.simpleicons.org/discovery/F68121",
       "tagColor": "#00000000",
       "borderColor": "#00000000",
       "textColor": "#00000000",
@@ -697,11 +697,11 @@
       "type": "filter"
     },
     {
-      "id": "bbc-iplayer",
+      "id": "roku",
       "groupId": "platforms",
-      "name": "BBC iPlayer",
-      "pattern": "(?i)\\b(bbc\\s*iplayer|iplayer)\\b",
-      "imageURL": "https://cdn.simpleicons.org/bbciplayer/F54997",
+      "name": "Roku",
+      "pattern": "(?i)\\broku\\b",
+      "imageURL": "https://cdn.simpleicons.org/roku/662D91",
       "tagColor": "#00000000",
       "borderColor": "#00000000",
       "textColor": "#00000000",
@@ -710,11 +710,11 @@
       "type": "filter"
     },
     {
-      "id": "vudu",
+      "id": "pluto-tv",
       "groupId": "platforms",
-      "name": "Vudu",
-      "pattern": "(?i)\\bvudu\\b",
-      "imageURL": "https://cdn.simpleicons.org/vudu/3399FF",
+      "name": "Pluto TV",
+      "pattern": "(?i)\\b(pluto\\s*tv|pluto)\\b",
+      "imageURL": "https://cdn.simpleicons.org/plutotv/000000",
       "tagColor": "#00000000",
       "borderColor": "#00000000",
       "textColor": "#00000000",
